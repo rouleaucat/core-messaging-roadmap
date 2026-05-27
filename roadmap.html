@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Core Messaging Roadmap</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #f2f2f7;
+  min-height: 100vh;
+  padding: 32px 24px 48px;
+  color: #1a1a1a;
+}
+
+.page {
+  max-width: none;
+  margin: 0 auto;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.09);
+  overflow: hidden;
+}
+
+/* ── Header ── */
+.page-header {
+  padding: 28px 40px 22px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  border-bottom: 1px solid #ebebeb;
+}
+.page-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #111;
+  letter-spacing: -0.3px;
+}
+.page-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 6px;
+}
+.page-subtitle { font-size: 13px; color: #888; font-weight: 500; }
+.today-badge {
+  font-size: 12px;
+  background: #fee2e2;
+  color: #dc2626;
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-weight: 600;
+}
+.header-actions { display: flex; gap: 8px; align-items: center; }
+.btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s;
+  line-height: 1;
+}
+.btn-outline {
+  background: white;
+  border: 1.5px solid #ddd;
+  color: #555;
+}
+.btn-outline:hover { border-color: #999; color: #111; background: #fafafa; }
+.btn-green { background: #3ecf8e; color: white; }
+.btn-green:hover { background: #2fb87d; }
+
+/* ── Chart ── */
+.chart-wrap {
+  padding: 24px 40px 16px;
+  overflow-x: auto;
+}
+.chart {
+  min-width: 1200px;
+  position: relative;
+}
+
+/* Year headers */
+.row-years {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid #bbb;
+}
+.row-years-spacer {
+  width: var(--label-w);
+  flex-shrink: 0;
+}
+.row-years-content {
+  flex: 1;
+  position: relative;
+  height: 28px;
+}
+.y-header {
+  position: absolute;
+  top: 0; bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  color: #111;
+  background: #e2e2e2;
+  border-left: 2px solid #aaa;
+  letter-spacing: 0.5px;
+}
+.y-header:first-of-type { border-left: none; }
+
+/* Quarter headers */
+.row-quarters {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid #d0d0d0;
+}
+.row-quarters-spacer {
+  width: var(--label-w);
+  flex-shrink: 0;
+}
+.row-quarters-content {
+  flex: 1;
+  position: relative;
+  height: 36px;
+}
+.q-header {
+  position: absolute;
+  top: 0; bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #333;
+  background: #ebebeb;
+  border-left: 2px solid #d0d0d0;
+  letter-spacing: 0.5px;
+  cursor: default;
+}
+.q-header:first-child { border-left: none; }
+
+/* Month headers */
+.row-months {
+  display: flex;
+  margin-left: var(--label-w);
+  margin-bottom: 2px;
+}
+.m-header {
+  flex: 1;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  color: #777;
+  border-left: 1px solid #ebebeb;
+  font-weight: 500;
+  background: #fafafa;
+}
+.m-header:first-child { border-left: none; }
+
+/* Tracks area */
+.tracks-area { position: relative; }
+
+/* Today line */
+.today-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #dc2626;
+  z-index: 10;
+  pointer-events: none;
+}
+.today-tick {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0; height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 7px solid #dc2626;
+}
+
+/* Track row */
+.track-row {
+  display: flex;
+  align-items: center;
+  min-height: 58px;
+  border-bottom: 1px solid #efefef;
+}
+.track-row:last-child { border-bottom: none; }
+
+.track-label {
+  width: var(--label-w);
+  flex-shrink: 0;
+  padding: 0 18px 0 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+}
+.track-label a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dashed #aaa;
+}
+.track-label a:hover {
+  border-bottom-color: #555;
+  color: #3b82f6;
+}
+.track-content {
+  flex: 1;
+  position: relative;
+  height: 58px;
+  overflow: visible;
+}
+
+/* Grid lines inside track */
+.grid-lines {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  pointer-events: none;
+}
+.grid-cell { flex: 1; border-left: 1px solid #ebebeb; }
+.grid-cell:first-child { border-left: none; }
+.grid-cell.q-boundary { border-left: 2px solid #d8d8d8; }
+
+/* Arrow bars */
+.bar {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 42px;
+  display: flex;
+  align-items: center;
+  padding: 0 22px 0 14px;
+  font-size: 13px;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  z-index: 2;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%);
+  white-space: nowrap;
+  overflow: hidden;
+  transition: filter 0.15s;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.18);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+.bar:hover { filter: brightness(1.07); }
+
+/* External label for bars too narrow to fit text inside */
+.bar-ext-label {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 11.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  z-index: 4;
+  pointer-events: none;
+  background: white;
+  padding: 3px 9px;
+  border-radius: 99px;
+  border: 1.5px solid var(--lbl-color, #888);
+  color: var(--lbl-color, #555);
+  line-height: 1.4;
+  text-align: center;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+.bar.tentative {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--bar-color), var(--bar-color) 8px,
+    color-mix(in srgb, var(--bar-color) 60%, white) 8px,
+    color-mix(in srgb, var(--bar-color) 60%, white) 16px
+  );
+  opacity: 0.9;
+}
+
+/* Milestone */
+.milestone {
+  position: absolute;
+  top: 50%;
+  z-index: 5;
+  cursor: pointer;
+}
+.milestone-star {
+  font-size: 22px;
+  line-height: 1;
+  transform: translate(-50%, -50%);
+  display: block;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.25));
+  position: relative;
+}
+.milestone-label {
+  position: absolute;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #111;
+  white-space: nowrap;
+  background: rgba(255,255,255,0.92);
+  padding: 2px 6px;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+/* Platform & Foundations section */
+.platform-divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 0 0 0;
+  border-top: 2px dashed #fcd34d;
+  margin-top: 0;
+}
+.platform-divider-label {
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: 700;
+  color: #d97706;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  padding: 0 0 0 var(--label-w);
+}
+.platform-divider-sub {
+  font-size: 11px;
+  color: #c4bfbb;
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  padding: 14px 40px;
+  border-top: 1px solid #ebebeb;
+  align-items: center;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: #666;
+}
+.l-swatch {
+  width: 26px;
+  height: 13px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.l-today-line {
+  width: 2px;
+  height: 18px;
+  background: #dc2626;
+  border-radius: 1px;
+}
+
+/* Footer */
+.page-footer {
+  padding: 10px 40px 14px;
+  font-size: 11.5px;
+  color: #bbb;
+  text-align: right;
+  border-top: 1px solid #f2f2f2;
+}
+
+/* ── Tooltip ── */
+.tooltip {
+  position: fixed;
+  background: #18181b;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 12px;
+  pointer-events: none;
+  z-index: 9999;
+  max-width: 240px;
+  display: none;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+  line-height: 1.4;
+}
+.tooltip.show { display: block; }
+.tt-title { font-weight: 700; font-size: 13px; margin-bottom: 3px; }
+.tt-date { color: #a1a1aa; font-size: 11px; }
+.tt-notes { color: #d4d4d8; font-size: 11.5px; margin-top: 6px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 6px; }
+.tt-chip { display: inline-block; background: rgba(255,255,255,0.12); padding: 1px 7px; border-radius: 99px; font-size: 11px; margin-top: 5px; }
+.tt-commitments { margin-top: 6px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 6px; }
+.tt-commitments-label { font-size: 10px; font-weight: 700; color: #a1a1aa; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.tt-commitment-item { font-size: 11.5px; color: #e4e4e7; padding: 1px 0 1px 10px; position: relative; }
+.tt-commitment-item::before { content: '·'; position: absolute; left: 2px; }
+
+/* ── Edit Modal ── */
+.modal-bg {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.modal-bg.open { display: flex; }
+.modal {
+  background: white;
+  border-radius: 14px;
+  width: 92%; max-width: 680px; max-height: 82vh;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.28);
+}
+.modal-hd { padding: 18px 22px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between; }
+.modal-hd h2 { font-size: 15px; font-weight: 700; }
+.modal-x { background: none; border: none; font-size: 18px; cursor: pointer; color: #888; padding: 4px; }
+.modal-body { padding: 18px 22px; overflow-y: auto; flex: 1; }
+.modal-body textarea {
+  width: 100%; height: 360px;
+  font-family: 'Menlo', 'Monaco', monospace;
+  font-size: 11.5px;
+  border: 1.5px solid #ddd; border-radius: 8px;
+  padding: 12px; resize: vertical; outline: none;
+  color: #222; line-height: 1.6;
+}
+.modal-body textarea:focus { border-color: #3ecf8e; }
+.modal-err { color: #dc2626; font-size: 12px; margin-top: 8px; min-height: 18px; }
+.modal-ft { padding: 14px 22px; border-top: 1px solid #eee; display: flex; justify-content: flex-end; gap: 8px; }
+</style>
+</head>
+<body>
+
+<div class="page" id="page">
+  <div class="page-header">
+    <div>
+      <div class="page-title" id="hdr-title">Core Messaging Roadmap</div>
+      <div class="page-meta">
+        <span class="page-subtitle" id="hdr-subtitle"></span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-outline" onclick="openModal()">✏️ Edit JSON</button>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart" id="chart" style="--label-w: 160px;"></div>
+  </div>
+
+  <div class="legend" id="legend"></div>
+  <div class="page-footer" id="footer-stamp">Last updated: —</div>
+</div>
+
+<!-- Tooltip -->
+<div class="tooltip" id="tooltip">
+  <div class="tt-title" id="tt-title"></div>
+  <div class="tt-date"  id="tt-date"></div>
+  <div id="tt-extra"></div>
+</div>
+
+<!-- Edit modal -->
+<div class="modal-bg" id="modal-bg">
+  <div class="modal">
+    <div class="modal-hd">
+      <h2>Edit Roadmap Data (JSON)</h2>
+      <button class="modal-x" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <textarea id="json-ta" spellcheck="false"></textarea>
+      <div class="modal-err" id="json-err"></div>
+    </div>
+    <div class="modal-ft">
+      <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-green" onclick="saveModal()">Apply Changes</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ====================================================================
+   ROADMAP DATA
+   — Edit this object (or click "Edit JSON") to update the roadmap.
+   ==================================================================== */
+let ROADMAP = {
+  title: "Core Messaging Roadmap",
+  subtitle: "",
+
+  timelineStart: "2026-01-01",
+  timelineEnd:   "2027-06-30",
+
+  quarters: [
+    { label: "Q1", start: "2026-01-01", end: "2026-03-31" },
+    { label: "Q2", start: "2026-04-01", end: "2026-06-30" },
+    { label: "Q3", start: "2026-07-01", end: "2026-09-30" },
+    { label: "Q4", start: "2026-10-01", end: "2026-12-31" },
+    { label: "Q1", start: "2027-01-01", end: "2027-03-31" },
+    { label: "Q2", start: "2027-04-01", end: "2027-06-30" }
+  ],
+
+  /* Squad cycle calendar — from 2026 Mindbody Squad Cycle Calendar */
+  cycles: [
+    { label: "Cycle 1",     start: "2026-01-07", end: "2026-02-17", type: "h1"   },
+    { label: "Bug Rodeo",   start: "2026-02-18", end: "2026-02-24", type: "flex" },
+    { label: "Cycle 2",     start: "2026-02-25", end: "2026-04-07", type: "h2"   },
+    { label: "Cycle 1",     start: "2026-04-08", end: "2026-05-15", type: "h1"   },
+    { label: "Offsite 🇲🇽",  start: "2026-05-16", end: "2026-05-26", type: "flex" },
+    { label: "Cycle 2",     start: "2026-05-27", end: "2026-07-07", type: "h2"   },
+    { label: "Cycle 1",     start: "2026-07-08", end: "2026-08-18", type: "h1"   },
+    { label: "Cycle 2",     start: "2026-08-19", end: "2026-09-29", type: "h2"   },
+    { label: "Flex",        start: "2026-09-30", end: "2026-10-06", type: "flex" },
+    { label: "Cycle 1",     start: "2026-10-07", end: "2026-11-17", type: "h1"   },
+    { label: "Cycle 2",     start: "2026-11-18", end: "2026-12-23", type: "h2"   },
+    { label: "Office Closed", start: "2026-12-24", end: "2026-12-31", type: "flex" }
+  ],
+
+  tracks: [
+    {
+      id:      "template-config",
+      name:    "Template Config",
+      color:   "#3b82f6",
+      bgColor: "#eff6ff",
+      bars: [
+        {
+          id:        "tc-1",
+          label:     "3P Integration",
+          start:     "2026-01-06",
+          end:       "2026-02-14",
+          tentative: false,
+          lane:      0,
+          notes:     "Alpha testing with 3P providers"
+        },
+        {
+          id:        "tc-2",
+          label:     "BSP Phase 1",
+          start:     "2026-04-01",
+          end:       "2026-04-21",
+          tentative: false,
+          lane:      1,
+          notes:     "BSP Phase 1 integration"
+        },
+        {
+          id:        "tc-3",
+          label:     "Adoption Discovery",
+          start:     "2026-06-17",
+          end:       "2026-06-30",
+          tentative: true,
+          lane:      2,
+          notes:     "Tentative — scope depends on BSP beta learnings"
+        },
+        {
+          id:        "tc-4",
+          label:     "SMS Migration",
+          start:     "2026-07-01",
+          end:       "2026-09-30",
+          tentative: true,
+          lane:      0,
+          notes:     "SMS migration in Q3"
+        },
+        {
+          id:        "tc-5",
+          label:     "Email Migration",
+          start:     "2026-10-01",
+          end:       "2026-12-31",
+          tentative: true,
+          lane:      1,
+          notes:     "Email migration in Q4"
+        }
+      ],
+      milestones: []
+    },
+
+    {
+      id:      "whatsapp",
+      name:    "WhatsApp",
+      color:   "#3ecf8e",
+      bgColor: "#f5fdf8",
+      bars: [
+        {
+          id:        "wa-3p",
+          label:     "3P Development",
+          start:     "2026-01-06",
+          end:       "2026-03-31",
+          tentative: false,
+          lane:      0,
+          notes:     "3P integration — full Q1 development cycle"
+        },
+        {
+          id:          "wa-bsp",
+          label:       "BSP Development",
+          start:       "2026-04-01",
+          end:         "2026-06-30",
+          tentative:   false,
+          lane:        0,
+          notes:       "Phase 1 launch of our WhatsApp BSP release, includes:<br>· Onboarding/Meta Embedded sign up<br>· 8 non-editable high value transactional notifications<br>· Targeting 10–15 customers in Singapore",
+          commitments: ["Product Gate for Template Editing (Phase 2/H2)", "Template Management", "Feature Management", "Token Refresh", "Webhooks Handling", "Complete adoption work in sending repos"]
+        },
+        {
+          id:        "wa-template-editing",
+          label:     "Template Editing",
+          start:     "2026-07-01",
+          end:       "2026-09-30",
+          tentative: false,
+          lane:      0,
+          notes:     "Template editing support in Q3"
+        },
+        {
+          id:        "wa-transactional-w2",
+          label:     "Transactional Messages: Wave 2",
+          start:     "2026-08-19",
+          end:       "2026-09-29",
+          tentative: false,
+          lane:      1,
+          notes:     "Transactional Messages Wave 2 — Q3 Cycle 2"
+        },
+        {
+          id:        "wa-transactional-w3",
+          label:     "Transactional Messages: Wave 3",
+          start:     "2026-10-07",
+          end:       "2026-11-17",
+          tentative: false,
+          lane:      2,
+          notes:     "Transactional Messages Wave 3 — Q4 Cycle 1"
+        },
+        {
+          id:        "wa-smartdesk",
+          label:     "SmartDesk Adoption",
+          start:     "2026-10-01",
+          end:       "2026-12-31",
+          tentative: true,
+          lane:      0,
+          notes:     "SmartDesk adoption in Q4"
+        }
+      ],
+      milestones: [
+        {
+          id:           "m-3p-launch",
+          label:        "3P Test Launch",
+          date:         "2026-04-06",
+          labelOffsetX: 14,
+          labelOffsetY: -3
+        },
+        {
+          id:           "m-bsp-prod",
+          label:        "BSP Phase 1\nProduction Ready",
+          date:         "2026-06-30",
+          labelOffsetX: 14,
+          labelOffsetY: 8
+        },
+        {
+          id:           "m-phase1-launch",
+          label:        "BSP Launch (Singapore)",
+          date:         "2026-07-21",
+          labelOffsetX: 14,
+          labelOffsetY: -3
+        }
+      ]
+    },
+
+    {
+      id:      "unified-inbox",
+      name:    "Unified Inbox",
+      color:   "#f97316",
+      bgColor: "#fff7ed",
+      bars: [
+        {
+          id:          "ui-1",
+          label:       "Development",
+          start:       "2026-02-01",
+          end:         "2026-05-15",
+          tentative:   false,
+          notes:       "Feb through mid-May",
+          commitments: ["End to end testing, clean up work"]
+        }
+      ],
+      milestones: []
+    },
+
+    {
+      id:      "australia-kyc",
+      name:    "Australia KYC",
+      link:    "https://www.notion.so/playlist/Australia-KYC-Compliance-Initiative-34bdda30e231817fb1a0d80533e551a1",
+      color:   "#6366f1",
+      bgColor: "#eef2ff",
+      bars: [
+        {
+          id:          "au-twilio",
+          label:       "Twilio Compliance (AU)",
+          start:       "2026-05-01",
+          end:         "2026-06-15",
+          tentative:   false,
+          lane:        0,
+          notes:       "Integrate Twilio Compliance Embeddable for AU customers",
+          commitments: ["Integrate Twilio Compliance Embeddable", "Move AU data to ComplianceForms", "In product alert and customer comms"]
+        },
+        {
+          id:        "au-migrate",
+          label:     "Migrate AU Records",
+          start:     "2026-05-01",
+          end:       "2026-06-30",
+          tentative: false,
+          lane:      1,
+          notes:     "Migrate AU bundle records to Compliance Service"
+        }
+      ],
+      milestones: []
+    },
+
+    {
+      id:      "kite-support",
+      name:    "Kite Support",
+      color:   "#9333ea",
+      bgColor: "#faf5ff",
+      bars: [
+        {
+          id:          "ks-1",
+          label:       "Development",
+          start:       "2026-04-01",
+          end:         "2026-06-30",
+          tentative:   false,
+          notes:       "Full Q2 Kite integration",
+          commitments: ["Continued architecture/design support + code reviews for Kite development"]
+        },
+        {
+          id:        "ks-2",
+          label:     "Platform Scaling",
+          start:     "2026-05-26",
+          end:       "2026-06-30",
+          tentative: false,
+          notes:     "Platform scaling initiative"
+        }
+      ],
+      milestones: []
+    },
+
+    {
+      id:      "tech-initiatives",
+      name:    "Tech Initiatives",
+      color:   "#06b6d4",
+      bgColor: "#ecfeff",
+      bars: [
+        {
+          id:          "ti-dotnet",
+          label:       ".NET 10 Upgrade",
+          start:       "2026-05-25",
+          end:         "2026-05-29",
+          tentative:   false,
+          lane:        0,
+          notes:       ".NET 10 upgrade sprint",
+          commitments: ["Upgrade MessageBroker Repo"]
+        },
+        {
+          id:          "ti-audit",
+          label:       "Audit Logging",
+          start:       "2026-06-01",
+          end:         "2026-06-05",
+          tentative:   false,
+          lane:        1,
+          notes:       "Audit logging implementation",
+          commitments: ["Add audit log support to 3 legacy owned tables"]
+        }
+      ],
+      milestones: []
+    },
+
+    {
+      id:      "vendor-optionality",
+      name:    "Vendor Optionality",
+      color:   "#e11d48",
+      bgColor: "#fff1f2",
+      bars:       [],
+      milestones: []
+    }
+  ],
+
+  platform: {
+    title: "Platform & Foundations",
+    subtitle: "Ongoing activities — not cycle commitments",
+    color: "#d97706",
+    bgColor: "#fffbeb",
+    items: [
+      { id: "pf-1", label: "Message Repository Reference Documentation", start: "2026-05-27", end: "2026-06-30", tentative: true,  notes: "Establish message repository reference documentation with clear ownership" },
+      { id: "pf-2", label: "Runbooks",                                   start: "2026-07-01", end: "2026-09-30", tentative: true,  notes: "Create and maintain operational runbooks" },
+      { id: "pf-3", label: "Self-Service Tooling",                       start: "2026-10-01", end: "2026-12-31", tentative: true,  notes: "Build tooling to enable self-service workflows" }
+    ]
+  }
+};
+
+/* ====================================================================
+   UTILITIES
+   ==================================================================== */
+function pd(s) {
+  const [y, m, d] = s.split('-').map(Number);
+  return new Date(y, m - 1, d);
+}
+
+function pct(dateStr, start, end) {
+  const d = pd(dateStr).getTime();
+  const s = pd(start).getTime();
+  const e = pd(end).getTime();
+  return Math.max(0, Math.min(100, (d - s) / (e - s) * 100));
+}
+
+function fmtDate(str) {
+  return pd(str).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function todayStr() {
+  const t = new Date();
+  return `${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,'0')}-${String(t.getDate()).padStart(2,'0')}`;
+}
+
+function monthsInRange(start, end) {
+  const names = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const result = [];
+  let d = pd(start);
+  const e = pd(end);
+  while (d <= e) {
+    result.push({ label: names[d.getMonth()], year: d.getFullYear(), month: d.getMonth() });
+    d = new Date(d.getFullYear(), d.getMonth() + 1, 1);
+  }
+  return result;
+}
+
+function escAttr(str) {
+  return str.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+/* ====================================================================
+   MILESTONE LANE ASSIGNMENT
+   Greedy algorithm: sort milestones by date, place each in the lowest
+   lane whose last label doesn't visually overlap this milestone's star.
+   ==================================================================== */
+function assignMilestoneLanes(milestones, S, E) {
+  if (!milestones || milestones.length === 0) return [];
+  const CHART_EST_PX = 900; /* estimated chart content width in px */
+  const CHAR_W_PX    = 7.5;
+  const BUFFER_PX    = 28;  /* gap after label before next milestone */
+
+  const order = milestones.map((_, i) => i)
+    .sort((a, b) => milestones[a].date.localeCompare(milestones[b].date));
+  const lanes       = new Array(milestones.length).fill(0);
+  const laneNextPct = []; /* earliest % where next ms can sit in each lane */
+
+  order.forEach(idx => {
+    const ms    = milestones[idx];
+    const msPct = pct(ms.date, S, E);
+    const maxLineChars  = Math.max(...ms.label.split('\n').map(l => l.length));
+    const labelWidthPct = (maxLineChars * CHAR_W_PX + BUFFER_PX) / CHART_EST_PX * 100;
+
+    let placed = false;
+    for (let lane = 0; lane < laneNextPct.length; lane++) {
+      if (msPct >= laneNextPct[lane]) {
+        lanes[idx]        = lane;
+        laneNextPct[lane] = msPct + labelWidthPct;
+        placed = true;
+        break;
+      }
+    }
+    if (!placed) {
+      lanes[idx] = laneNextPct.length;
+      laneNextPct.push(msPct + labelWidthPct);
+    }
+  });
+  return lanes;
+}
+
+/* ====================================================================
+   LANE ASSIGNMENT
+   Greedy algorithm: sort bars by start date, place each in the lowest
+   lane that doesn't overlap with any bar already in that lane.
+   ==================================================================== */
+function assignLanes(bars) {
+  if (!bars || bars.length === 0) return [];
+  const order = bars.map((_, i) => i)
+    .sort((a, b) => bars[a].start.localeCompare(bars[b].start));
+  const lanes    = new Array(bars.length).fill(0);
+  const laneEnds = []; /* latest end date currently in each lane */
+  order.forEach(idx => {
+    const bar = bars[idx];
+    /* honour explicit lane override if present */
+    if (typeof bar.lane === 'number') {
+      lanes[idx] = bar.lane;
+      while (laneEnds.length <= bar.lane) laneEnds.push('');
+      if (bar.end > (laneEnds[bar.lane] || '')) laneEnds[bar.lane] = bar.end;
+      return;
+    }
+    let placed = false;
+    for (let lane = 0; lane < laneEnds.length; lane++) {
+      if (bar.start >= laneEnds[lane]) {
+        lanes[idx]    = lane;
+        laneEnds[lane] = bar.end;
+        placed = true;
+        break;
+      }
+    }
+    if (!placed) {
+      lanes[idx] = laneEnds.length;
+      laneEnds.push(bar.end);
+    }
+  });
+  return lanes;
+}
+
+/* ====================================================================
+   RENDER
+   ==================================================================== */
+function render() {
+  const chart  = document.getElementById('chart');
+  const S      = ROADMAP.timelineStart;
+  const E      = ROADMAP.timelineEnd;
+  const months = monthsInRange(S, E);
+  const td     = todayStr();
+
+  document.getElementById('hdr-title').textContent    = ROADMAP.title;
+  document.getElementById('hdr-subtitle').textContent = ROADMAP.subtitle;
+
+  const todayBadge = document.getElementById('hdr-today');
+  if (todayBadge) {
+    if (td >= S && td <= E) {
+      todayBadge.textContent   = `Today: ${fmtDate(td)}`;
+      todayBadge.style.display = '';
+    } else {
+      todayBadge.style.display = 'none';
+    }
+  }
+
+  const qBoundaryMonths = new Set();
+  ROADMAP.quarters.forEach((q, i) => {
+    if (i > 0) {
+      const d = pd(q.start);
+      qBoundaryMonths.add(`${d.getFullYear()}-${d.getMonth()}`);
+    }
+  });
+
+  let html = '';
+
+  /* Year header */
+  const yearGroups = {};
+  ROADMAP.quarters.forEach(q => {
+    const yr = q.start.slice(0, 4);
+    if (!yearGroups[yr]) yearGroups[yr] = [];
+    yearGroups[yr].push(q);
+  });
+  const yearKeys = Object.keys(yearGroups);
+  html += '<div class="row-years"><div class="row-years-spacer"></div><div class="row-years-content">';
+  yearKeys.forEach((yr, i) => {
+    const qs     = yearGroups[yr];
+    const l      = pct(qs[0].start, S, E);
+    const nextYr = yearKeys[i + 1];
+    const r      = nextYr ? pct(yearGroups[nextYr][0].start, S, E) : 100;
+    const w      = r - l;
+    const bl     = i === 0 ? 'none' : '2px solid #aaa';
+    html += `<div class="y-header" style="left:${l}%;width:${w}%;border-left:${bl};">${yr}</div>`;
+  });
+  html += '</div></div>';
+
+  /* Quarter header — absolutely positioned to match cycle/bar coordinate system */
+  html += '<div class="row-quarters"><div class="row-quarters-spacer"></div><div class="row-quarters-content">';
+  ROADMAP.quarters.forEach((q, i) => {
+    const nextQ   = ROADMAP.quarters[i + 1];
+    const l       = pct(q.start, S, E);
+    const r       = nextQ ? pct(nextQ.start, S, E) : 100;
+    const w       = r - l;
+    const tipData = JSON.stringify({ title: q.label, start: q.start, end: q.end });
+    html += `<div class="q-header" style="left:${l}%;width:${w}%;"
+      data-tip="${escAttr(tipData)}"
+      onmouseenter="showTip(event,this)" onmouseleave="hideTip()"
+    >${q.label}</div>`;
+  });
+  html += '</div></div>';
+
+  /* Cycle row */
+  if (ROADMAP.cycles && ROADMAP.cycles.length) {
+    const cycleColors = {
+      h1:   { bg: '#dbeafe', color: '#1e40af', border: '#bfdbfe' },
+      h2:   { bg: '#ede9fe', color: '#5b21b6', border: '#ddd6fe' },
+      flex: { bg: '#fce7f3', color: '#9d174d', border: '#fbcfe8' }
+    };
+    html += '<div style="display:flex;align-items:stretch;border-bottom:1px solid #d0d0d0;">';
+    html += '<div style="width:160px;flex-shrink:0;font-size:10px;font-weight:700;color:#bbb;text-transform:uppercase;letter-spacing:0.6px;display:flex;align-items:center;padding-right:18px;">Squad Cycles</div>';
+    html += '<div style="flex:1;position:relative;height:26px;">';
+    ROADMAP.cycles.forEach(cycle => {
+      const l = pct(cycle.start, S, E);
+      const w = pct(cycle.end,   S, E) - l;
+      const c = cycleColors[cycle.type] || cycleColors.h1;
+      const cycleTip = escAttr(JSON.stringify({ title: cycle.label, start: cycle.start, end: cycle.end }));
+      html += `<div style="position:absolute;left:${l}%;width:${w}%;top:0;bottom:0;
+        background:${c.bg};color:${c.color};border-right:1px solid ${c.border};
+        display:flex;align-items:center;justify-content:center;
+        font-size:10px;font-weight:700;overflow:hidden;white-space:nowrap;padding:0 4px;cursor:default;"
+        data-tip="${cycleTip}"
+        onmouseenter="showTip(event,this)" onmouseleave="hideTip()"
+        onclick="showTip(event,this)">${cycle.label}</div>`;
+    });
+    html += '</div></div>';
+  }
+
+  /* Month header */
+  html += '<div class="row-months">';
+  months.forEach(m => {
+    const isQB = qBoundaryMonths.has(`${m.year}-${m.month}`);
+    html += `<div class="m-header" style="${isQB ? 'border-left:2px solid #c8c8c8;' : ''}">${m.label}</div>`;
+  });
+  html += '</div>';
+
+  /* Tracks area */
+  html += '<div class="tracks-area" id="tracks-area">';
+
+  /* Today line */
+  if (td >= S && td <= E) {
+    const tp = pct(td, S, E);
+    html += `<div class="today-line" id="today-line" data-pct="${tp}"><div class="today-tick"></div></div>`;
+  }
+
+  /* Track rows */
+  ROADMAP.tracks.forEach(track => {
+    const computedLanes   = assignLanes(track.bars);
+    const laneCount       = computedLanes.length > 0 ? Math.max(...computedLanes) + 1 : 1;
+    const hasMilestones   = track.milestones && track.milestones.length > 0;
+    const computedMsLanes = assignMilestoneLanes(track.milestones, S, E);
+    const msLaneCount     = hasMilestones ? Math.max(...computedMsLanes) + 1 : 0;
+    const MS_H            = hasMilestones ? msLaneCount * 32 : 0; /* 32px per milestone row */
+    const barZoneH     = laneCount > 1 ? laneCount * 50 + 16 : 74;
+    const trackH       = MS_H + barZoneH;
+    const barColor     = track.color   || '#3ecf8e';
+    const bgColor      = track.bgColor || '#f5fdf8';
+
+    html += `<div class="track-row" style="min-height:${trackH}px;background:${bgColor};">`;
+    const labelInner = track.link
+      ? `<a href="${escAttr(track.link)}" target="_blank" rel="noopener">${track.name}</a>`
+      : track.name;
+    html += `<div class="track-label">${labelInner}</div>`;
+    html += `<div class="track-content" id="content-${track.id}" style="height:${trackH}px;">`;
+
+    /* Grid lines */
+    html += '<div class="grid-lines">';
+    months.forEach(m => {
+      const isQB = qBoundaryMonths.has(`${m.year}-${m.month}`);
+      html += `<div class="grid-cell${isQB ? ' q-boundary' : ''}"></div>`;
+    });
+    html += '</div>';
+
+    /* Bars */
+    track.bars.forEach((bar, barIdx) => {
+      const l        = pct(bar.start, S, E);
+      const w        = pct(bar.end,   S, E) - l;
+      const lane      = computedLanes[barIdx] ?? 0;
+      /* position bars within the bar zone (below any milestone zone) */
+      const barPxCenter = MS_H + ((lane + 0.5) / laneCount) * barZoneH;
+      const topPct      = (barPxCenter / trackH) * 100;
+      const cls      = `bar${bar.tentative ? ' tentative' : ''}`;
+      const bgStyle  = bar.tentative ? '' : `background:${barColor};`;
+      const dispLabel = bar.label || track.name;
+      const tipData  = JSON.stringify({ title: dispLabel, start: bar.start, end: bar.end, tentative: bar.tentative, notes: bar.notes, commitments: bar.commitments || [] });
+
+      /* Bar — no text inside, label always shown as external pill */
+      html += `<div class="${cls}" style="--bar-color:${barColor};${bgStyle}left:${l}%;width:${w}%;top:${topPct}%;"
+        data-tip="${escAttr(tipData)}"
+        onmouseenter="showTip(event,this)" onmouseleave="hideTip()"
+      ></div>`;
+
+      /* Pill label — centred in the arrow */
+      if (dispLabel) {
+        const pillHtml = dispLabel.includes('\n')
+          ? dispLabel.split('\n').map(l => `<span style="display:block;">${l}</span>`).join('')
+          : dispLabel;
+        const pillWs   = dispLabel.includes('\n') ? 'normal' : 'nowrap';
+        html += `<div class="bar-ext-label" style="--lbl-color:${barColor};left:${l + w / 2}%;top:${topPct}%;white-space:${pillWs};"
+          data-tip="${escAttr(tipData)}"
+          onmouseenter="showTip(event,this)" onmouseleave="hideTip()"
+        >${pillHtml}</div>`;
+      }
+    });
+
+    /* Divider between milestone zone and bar zone */
+    if (hasMilestones) {
+      html += `<div style="position:absolute;left:0;right:0;top:${MS_H}px;height:1px;background:#e5e7eb;pointer-events:none;z-index:1;"></div>`;
+    }
+
+    /* Milestones — rendered in the top zone, stacked into lanes */
+    track.milestones.forEach((ms, msIdx) => {
+      const mp         = pct(ms.date, S, E);
+      const msLane     = computedMsLanes[msIdx] ?? 0;
+      const msPxCenter = (msLane + 0.5) * (MS_H / msLaneCount);
+      const msTopPct   = (msPxCenter / trackH) * 100;
+      const lines      = ms.label.split('\n').map(l => `<span style="display:block;">${l}</span>`).join('');
+      const tipData    = JSON.stringify({ title: ms.label.replace('\n', ' '), date: ms.date });
+
+      html += `<div class="milestone" style="left:${mp}%;top:${msTopPct}%;"
+        data-tip="${escAttr(tipData)}" data-ms="1"
+        onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+        <div class="milestone-star">⭐</div>
+        <div class="milestone-label" style="left:14px;top:-50%;">${lines}</div>
+      </div>`;
+    });
+
+    html += '</div></div>';
+  });
+
+  html += '</div>'; /* tracks-area */
+
+  /* Platform & Foundations section — rendered as timeline track rows */
+  if (ROADMAP.platform) {
+    const pf       = ROADMAP.platform;
+    const pfColor  = pf.color  || '#78716c';
+    const pfBg     = pf.bgColor || '#fafaf9';
+    const barZoneH = 74;
+    const trackH   = barZoneH;
+
+    /* Section divider header */
+    html += `<div class="platform-divider">
+      <span class="platform-divider-label">${pf.title} <span class="platform-divider-sub">— ${pf.subtitle}</span></span>
+    </div>`;
+
+    /* One track row per platform item */
+    (pf.items || []).forEach(item => {
+      if (!item.start || !item.end) return;
+      const l       = pct(item.start, S, E);
+      const w       = pct(item.end,   S, E) - l;
+      const topPct  = 50; /* centre vertically */
+      const cls     = `bar${item.tentative ? ' tentative' : ''}`;
+      const bgStyle = item.tentative ? '' : `background:${pfColor};`;
+      const tipData = JSON.stringify({ title: item.label, start: item.start, end: item.end, tentative: item.tentative, notes: item.notes });
+
+      html += `<div class="track-row" style="min-height:${trackH}px;background:${pfBg};">`;
+      html += `<div class="track-label" style="color:${pfColor};">${item.label}</div>`;
+      html += `<div class="track-content" style="height:${trackH}px;">`;
+
+      /* Grid lines */
+      html += '<div class="grid-lines">';
+      months.forEach(m => {
+        const isQB = qBoundaryMonths.has(`${m.year}-${m.month}`);
+        html += `<div class="grid-cell${isQB ? ' q-boundary' : ''}"></div>`;
+      });
+      html += '</div>';
+
+      /* Bar */
+      html += `<div class="${cls}" style="--bar-color:${pfColor};${bgStyle}left:${l}%;width:${w}%;top:${topPct}%;"
+        data-tip="${escAttr(tipData)}"
+        onmouseenter="showTip(event,this)" onmouseleave="hideTip()"
+      ></div>`;
+
+      /* Pill label */
+      html += `<div class="bar-ext-label" style="--lbl-color:${pfColor};left:${l + w / 2}%;top:${topPct}%;"
+        data-tip="${escAttr(tipData)}"
+        onmouseenter="showTip(event,this)" onmouseleave="hideTip()"
+      >${item.label}</div>`;
+
+      html += '</div></div>';
+    });
+  }
+
+  chart.innerHTML = html;
+  positionTodayLine();
+  renderLegend();
+  updateFooter();
+}
+
+function positionTodayLine() {
+  const line = document.getElementById('today-line');
+  if (!line) return;
+  const area = document.getElementById('tracks-area');
+  if (!area) return;
+  const LABEL_W = 160;
+  const chartW  = area.clientWidth - LABEL_W;
+  const p       = parseFloat(line.dataset.pct);
+  line.style.left   = (LABEL_W + chartW * p / 100) + 'px';
+  line.style.top    = '-28px';
+  line.style.bottom = '0';
+}
+
+function renderLegend() {
+  let html = '';
+
+  /* Status indicators */
+  html += `
+    <div class="legend-item">
+      <div class="l-swatch" style="background:repeating-linear-gradient(-45deg,#94a3b8,#94a3b8 4px,#cbd5e1 4px,#cbd5e1 8px);"></div>
+      Tentative
+    </div>
+    <div class="legend-item">
+      <span style="font-size:16px;">⭐</span>
+      Milestone
+    </div>
+    <div class="legend-item">
+      <div class="l-today-line"></div>
+      Today
+    </div>`;
+
+  /* Divider */
+  html += `<div style="width:1px;height:18px;background:#e5e7eb;margin:0 4px;"></div>`;
+
+  /* Abbreviation glossary */
+  html += `<div class="legend-item" style="color:#999;font-size:11.5px;">
+    3P&nbsp;=&nbsp;Third-Party &nbsp;·&nbsp;
+    BSP&nbsp;=&nbsp;Business Solution Provider &nbsp;·&nbsp;
+    KYC&nbsp;=&nbsp;Know Your Customer &nbsp;·&nbsp;
+    AU&nbsp;=&nbsp;Australia
+  </div>`;
+  document.getElementById('legend').innerHTML = html;
+}
+
+function updateFooter() {
+  const stored = localStorage.getItem('rm_updated');
+  document.getElementById('footer-stamp').textContent =
+    stored ? `Last updated: ${stored}` : `Initialized: ${fmtDate(todayStr())}`;
+}
+
+/* ====================================================================
+   TOOLTIP
+   ==================================================================== */
+const tooltip = document.getElementById('tooltip');
+
+function showTip(event, el) {
+  const raw  = el.getAttribute('data-tip').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+  const data = JSON.parse(raw);
+  const isMs = el.dataset.ms === '1';
+
+  document.getElementById('tt-title').textContent = (isMs ? '⭐ ' : '') + (data.title || '—');
+
+  if (isMs) {
+    document.getElementById('tt-date').textContent = fmtDate(data.date);
+    document.getElementById('tt-extra').innerHTML  = '';
+  } else {
+    document.getElementById('tt-date').textContent = `${fmtDate(data.start)} → ${fmtDate(data.end)}`;
+    let extra = '';
+    if (data.tentative) extra += '<span class="tt-chip">Tentative</span>';
+    if (data.notes)     extra += `<div class="tt-notes">${data.notes}</div>`;
+    if (data.commitments && data.commitments.length) {
+      extra += `<div class="tt-commitments">
+        <div class="tt-commitments-label">Commitments</div>
+        ${data.commitments.map(c => `<div class="tt-commitment-item">${c}</div>`).join('')}
+      </div>`;
+    }
+    document.getElementById('tt-extra').innerHTML = extra;
+  }
+
+  moveTip(event);
+  tooltip.classList.add('show');
+}
+
+function moveTip(e) {
+  const x = Math.min(e.clientX + 14, window.innerWidth - 250);
+  const y = e.clientY - 10;
+  tooltip.style.left = x + 'px';
+  tooltip.style.top  = y + 'px';
+}
+
+function hideTip() { tooltip.classList.remove('show'); }
+document.addEventListener('mousemove', e => {
+  if (tooltip.classList.contains('show')) moveTip(e);
+});
+
+/* ====================================================================
+   EDIT MODAL
+   ==================================================================== */
+function openModal() {
+  document.getElementById('json-ta').value = JSON.stringify(ROADMAP, null, 2);
+  document.getElementById('json-err').textContent = '';
+  document.getElementById('modal-bg').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('modal-bg').classList.remove('open');
+}
+function saveModal() {
+  try {
+    ROADMAP = JSON.parse(document.getElementById('json-ta').value);
+    localStorage.setItem('rm_data', JSON.stringify(ROADMAP));
+    localStorage.setItem('rm_version', DATA_VERSION);
+    const now = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    localStorage.setItem('rm_updated', now);
+    closeModal();
+    render();
+  } catch(e) {
+    document.getElementById('json-err').textContent = '⚠ Invalid JSON: ' + e.message;
+  }
+}
+document.getElementById('modal-bg').addEventListener('click', e => {
+  if (e.target === document.getElementById('modal-bg')) closeModal();
+});
+
+/* ====================================================================
+   INIT
+   ==================================================================== */
+const DATA_VERSION = "2026-05-22-v34";
+const savedData    = localStorage.getItem('rm_data');
+const savedVersion = localStorage.getItem('rm_version');
+if (savedData && savedVersion === DATA_VERSION) { try { ROADMAP = JSON.parse(savedData); } catch(e) {} }
+else { localStorage.removeItem('rm_data'); localStorage.setItem('rm_version', DATA_VERSION); }
+
+render();
+window.addEventListener('resize', positionTodayLine);
+</script>
+</body>
+</html>
