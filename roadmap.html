@@ -523,6 +523,7 @@ let ROADMAP = {
     {
       id:      "template-config",
       name:    "Template Config",
+      link:    "https://www.notion.so/playlist/Template-Configuration-Initiative-Overview-336dda30e231818b99d0c2e36875760b",
       color:   "#3b82f6",
       bgColor: "#eff6ff",
       bars: [
@@ -647,7 +648,7 @@ let ROADMAP = {
         },
         {
           id:           "m-bsp-prod",
-          label:        "BSP Phase 1\nProduction Ready",
+          label:        "BSP Phase 1 Production Ready",
           date:         "2026-06-30",
           labelOffsetX: 14,
           labelOffsetY: 8
@@ -665,6 +666,7 @@ let ROADMAP = {
     {
       id:      "unified-inbox",
       name:    "Unified Inbox",
+      link:    "https://www.notion.so/playlist/Unified-Inbox-Initiative-Overview-334dda30e2318157914bcf289e12b868",
       color:   "#f97316",
       bgColor: "#fff7ed",
       bars: [
@@ -1288,7 +1290,7 @@ document.getElementById('modal-bg').addEventListener('click', e => {
 /* ====================================================================
    INIT
    ==================================================================== */
-const DATA_VERSION = "2026-05-22-v37";
+const DATA_VERSION = "2026-05-22-v39";
 const savedData    = localStorage.getItem('rm_data');
 const savedVersion = localStorage.getItem('rm_version');
 if (savedData && savedVersion === DATA_VERSION) { try { ROADMAP = JSON.parse(savedData); } catch(e) {} }
