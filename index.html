@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Core Messaging Roadmap</title>
+<title>📫 Core Messaging Roadmap 📫</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -445,7 +445,6 @@ body {
       </div>
     </div>
     <div class="header-actions">
-      <button class="btn btn-outline" onclick="openModal()">✏️ Edit JSON</button>
     </div>
   </div>
 
@@ -488,7 +487,7 @@ body {
    — Edit this object (or click "Edit JSON") to update the roadmap.
    ==================================================================== */
 let ROADMAP = {
-  title: "Core Messaging Roadmap",
+  title: "📫 Core Messaging Roadmap 📫",
   subtitle: "",
 
   timelineStart: "2026-01-01",
@@ -1318,7 +1317,7 @@ document.getElementById('modal-bg').addEventListener('click', e => {
 /* ====================================================================
    INIT
    ==================================================================== */
-const DATA_VERSION = "2026-05-28-v43";
+const DATA_VERSION = "2026-05-28-v45";
 const savedData    = localStorage.getItem('rm_data');
 const savedVersion = localStorage.getItem('rm_version');
 if (savedData && savedVersion === DATA_VERSION) { try { ROADMAP = JSON.parse(savedData); } catch(e) {} }
