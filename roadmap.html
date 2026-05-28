@@ -723,6 +723,25 @@ let ROADMAP = {
     },
 
     {
+      id:      "canadian-registration",
+      name:    "Canadian Registration",
+      color:   "#8b5cf6",
+      bgColor: "#f5f3ff",
+      bars: [
+        {
+          id:        "ca-dev",
+          label:     "Development",
+          start:     "2026-08-19",
+          end:       "2026-09-30",
+          tentative: true,
+          lane:      0,
+          notes:     "Tentative development work for Canadian Registration"
+        }
+      ],
+      milestones: []
+    },
+
+    {
       id:      "kite-support",
       name:    "Kite Support",
       color:   "#9333ea",
@@ -1299,7 +1318,7 @@ document.getElementById('modal-bg').addEventListener('click', e => {
 /* ====================================================================
    INIT
    ==================================================================== */
-const DATA_VERSION = "2026-05-28-v41";
+const DATA_VERSION = "2026-05-28-v43";
 const savedData    = localStorage.getItem('rm_data');
 const savedVersion = localStorage.getItem('rm_version');
 if (savedData && savedVersion === DATA_VERSION) { try { ROADMAP = JSON.parse(savedData); } catch(e) {} }
