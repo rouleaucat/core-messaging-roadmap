@@ -611,6 +611,15 @@ let ROADMAP = {
           notes:     "Template editing support in Q3"
         },
         {
+          id:        "wa-direct-send-poc",
+          label:     "Direct Send API POC",
+          start:     "2026-07-08",
+          end:       "2026-08-18",
+          tentative: true,
+          lane:      2,
+          notes:     "Run a proof of concept on Meta's Direct Send API for Transactional/Utility messages"
+        },
+        {
           id:        "wa-transactional-w2",
           label:     "Transactional Messages: Wave 2",
           start:     "2026-08-19",
@@ -721,7 +730,7 @@ let ROADMAP = {
       bars: [
         {
           id:          "ks-1",
-          label:       "Development",
+          label:       "Architecture & Design Support",
           start:       "2026-04-01",
           end:         "2026-06-30",
           tentative:   false,
@@ -1290,7 +1299,7 @@ document.getElementById('modal-bg').addEventListener('click', e => {
 /* ====================================================================
    INIT
    ==================================================================== */
-const DATA_VERSION = "2026-05-22-v39";
+const DATA_VERSION = "2026-05-28-v41";
 const savedData    = localStorage.getItem('rm_data');
 const savedVersion = localStorage.getItem('rm_version');
 if (savedData && savedVersion === DATA_VERSION) { try { ROADMAP = JSON.parse(savedData); } catch(e) {} }
