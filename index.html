@@ -282,6 +282,31 @@ body {
   opacity: 0.9;
 }
 
+/* Group label — inline section header inside the timeline */
+.track-group-label {
+  position: absolute;
+  top: 4px;
+  transform: translateX(-0%);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  z-index: 5;
+  pointer-events: auto;
+  background: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1.5px solid var(--gl-color, #888);
+  color: var(--gl-color, #444);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+.track-group-label a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dashed currentColor;
+}
+.track-group-label a:hover { opacity: 0.75; }
+
 /* Milestone */
 .milestone {
   position: absolute;
@@ -693,10 +718,12 @@ let ROADMAP = {
 
     {
       id:      "australia-kyc",
-      name:    "Australia KYC",
-      link:    "https://www.notion.so/playlist/Australia-KYC-Compliance-Initiative-34bdda30e231817fb1a0d80533e551a1",
+      name:    "Compliance Initiatives",
       color:   "#6366f1",
       bgColor: "#eef2ff",
+      groupLabels: [
+        { label: "Australia KYC", link: "https://www.notion.so/playlist/Australia-KYC-Compliance-Initiative-34bdda30e231817fb1a0d80533e551a1", date: "2026-05-01" }
+      ],
       bars: [
         {
           id:          "au-twilio",
@@ -716,25 +743,15 @@ let ROADMAP = {
           tentative: false,
           lane:      1,
           notes:     "Migrate AU bundle records to Compliance Service"
-        }
-      ],
-      milestones: []
-    },
-
-    {
-      id:      "canadian-registration",
-      name:    "Canadian Registration",
-      color:   "#8b5cf6",
-      bgColor: "#f5f3ff",
-      bars: [
+        },
         {
-          id:        "ca-dev",
-          label:     "Development",
+          id:        "ca-reg",
+          label:     "Canadian A2P messaging registration",
           start:     "2026-08-19",
           end:       "2026-09-30",
           tentative: true,
           lane:      0,
-          notes:     "Tentative development work for Canadian Registration"
+          notes:     "Tentative development work for Canadian A2P messaging registration"
         }
       ],
       milestones: []
@@ -1055,8 +1072,10 @@ function render() {
     const computedMsLanes = assignMilestoneLanes(track.milestones, S, E);
     const msLaneCount     = hasMilestones ? Math.max(...computedMsLanes) + 1 : 0;
     const MS_H            = hasMilestones ? msLaneCount * 32 : 0; /* 32px per milestone row */
+    const hasGroupLabels  = track.groupLabels && track.groupLabels.length > 0;
+    const GL_H            = hasGroupLabels ? 28 : 0; /* 28px reserved below group label */
     const barZoneH     = laneCount > 1 ? laneCount * 50 + 16 : 74;
-    const trackH       = MS_H + barZoneH;
+    const trackH       = MS_H + GL_H + barZoneH;
     const barColor     = track.color   || '#3ecf8e';
     const bgColor      = track.bgColor || '#f5fdf8';
 
@@ -1080,8 +1099,8 @@ function render() {
       const l        = pct(bar.start, S, E);
       const w        = pct(bar.end,   S, E) - l;
       const lane      = computedLanes[barIdx] ?? 0;
-      /* position bars within the bar zone (below any milestone zone) */
-      const barPxCenter = MS_H + ((lane + 0.5) / laneCount) * barZoneH;
+      /* position bars within the bar zone (below any milestone zone + group label zone) */
+      const barPxCenter = MS_H + GL_H + ((lane + 0.5) / laneCount) * barZoneH;
       const topPct      = (barPxCenter / trackH) * 100;
       const cls      = `bar${bar.tentative ? ' tentative' : ''}`;
       const bgStyle  = bar.tentative ? '' : `background:${barColor};`;
@@ -1105,6 +1124,15 @@ function render() {
           onmouseenter="showTip(event,this)" onmouseleave="hideTip()"
         >${pillHtml}</div>`;
       }
+    });
+
+    /* Group labels — small inline section headers above the bars */
+    (track.groupLabels || []).forEach(gl => {
+      const glLeft = pct(gl.date, S, E);
+      const inner  = gl.link
+        ? `<a href="${escAttr(gl.link)}" target="_blank" rel="noopener">${gl.label}</a>`
+        : gl.label;
+      html += `<div class="track-group-label" style="left:${glLeft}%;--gl-color:${barColor};">${inner}</div>`;
     });
 
     /* Divider between milestone zone and bar zone */
@@ -1317,7 +1345,7 @@ document.getElementById('modal-bg').addEventListener('click', e => {
 /* ====================================================================
    INIT
    ==================================================================== */
-const DATA_VERSION = "2026-05-28-v45";
+const DATA_VERSION = "2026-05-28-v47";
 const savedData    = localStorage.getItem('rm_data');
 const savedVersion = localStorage.getItem('rm_version');
 if (savedData && savedVersion === DATA_VERSION) { try { ROADMAP = JSON.parse(savedData); } catch(e) {} }
