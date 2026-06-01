@@ -423,6 +423,7 @@ body {
 .tt-commitments-label { font-size: 10px; font-weight: 700; color: #a1a1aa; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
 .tt-commitment-item { font-size: 11.5px; color: #e4e4e7; padding: 1px 0 1px 10px; position: relative; }
 .tt-commitment-item::before { content: '·'; position: absolute; left: 2px; }
+.tt-link { margin-top: 6px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 6px; font-size: 11px; color: #93c5fd; }
 
 /* ── Edit Modal ── */
 .modal-bg {
@@ -751,6 +752,7 @@ let ROADMAP = {
           end:       "2026-09-30",
           tentative: true,
           lane:      0,
+          link:      "https://www.notion.so/372dda30e23181febb41dd40cb0285cb",
           notes:     "Tentative development work for Canadian A2P messaging registration"
         }
       ],
@@ -1105,12 +1107,14 @@ function render() {
       const cls      = `bar${bar.tentative ? ' tentative' : ''}`;
       const bgStyle  = bar.tentative ? '' : `background:${barColor};`;
       const dispLabel = bar.label || track.name;
-      const tipData  = JSON.stringify({ title: dispLabel, start: bar.start, end: bar.end, tentative: bar.tentative, notes: bar.notes, commitments: bar.commitments || [] });
+      const tipData  = JSON.stringify({ title: dispLabel, start: bar.start, end: bar.end, tentative: bar.tentative, notes: bar.notes, commitments: bar.commitments || [], link: bar.link || null });
 
       /* Bar — no text inside, label always shown as external pill */
-      html += `<div class="${cls}" style="--bar-color:${barColor};${bgStyle}left:${l}%;width:${w}%;top:${topPct}%;"
+      const barClickStyle = bar.link ? 'cursor:pointer;' : '';
+      const barClick      = bar.link ? `onclick="window.open('${escAttr(bar.link)}','_blank')"` : '';
+      html += `<div class="${cls}" style="--bar-color:${barColor};${bgStyle}${barClickStyle}left:${l}%;width:${w}%;top:${topPct}%;"
         data-tip="${escAttr(tipData)}"
-        onmouseenter="showTip(event,this)" onmouseleave="hideTip()"
+        onmouseenter="showTip(event,this)" onmouseleave="hideTip()" ${barClick}
       ></div>`;
 
       /* Pill label — centred in the arrow */
@@ -1119,9 +1123,11 @@ function render() {
           ? dispLabel.split('\n').map(l => `<span style="display:block;">${l}</span>`).join('')
           : dispLabel;
         const pillWs   = dispLabel.includes('\n') ? 'normal' : 'nowrap';
-        html += `<div class="bar-ext-label" style="--lbl-color:${barColor};left:${l + w / 2}%;top:${topPct}%;white-space:${pillWs};"
+        const pillClickStyle = bar.link ? 'cursor:pointer;pointer-events:auto;' : '';
+        const pillClick      = bar.link ? `onclick="window.open('${escAttr(bar.link)}','_blank')"` : '';
+        html += `<div class="bar-ext-label" style="--lbl-color:${barColor};left:${l + w / 2}%;top:${topPct}%;white-space:${pillWs};${pillClickStyle}"
           data-tip="${escAttr(tipData)}"
-          onmouseenter="showTip(event,this)" onmouseleave="hideTip()"
+          onmouseenter="showTip(event,this)" onmouseleave="hideTip()" ${pillClick}
         >${pillHtml}</div>`;
       }
     });
@@ -1135,10 +1141,7 @@ function render() {
       html += `<div class="track-group-label" style="left:${glLeft}%;--gl-color:${barColor};">${inner}</div>`;
     });
 
-    /* Divider between milestone zone and bar zone */
-    if (hasMilestones) {
-      html += `<div style="position:absolute;left:0;right:0;top:${MS_H}px;height:1px;background:#e5e7eb;pointer-events:none;z-index:1;"></div>`;
-    }
+
 
     /* Milestones — rendered in the top zone, stacked into lanes */
     track.milestones.forEach((ms, msIdx) => {
@@ -1295,6 +1298,9 @@ function showTip(event, el) {
         ${data.commitments.map(c => `<div class="tt-commitment-item">${c}</div>`).join('')}
       </div>`;
     }
+    if (data.link) {
+      extra += `<div class="tt-link">🔗 Click to open in Notion</div>`;
+    }
     document.getElementById('tt-extra').innerHTML = extra;
   }
 
@@ -1345,7 +1351,7 @@ document.getElementById('modal-bg').addEventListener('click', e => {
 /* ====================================================================
    INIT
    ==================================================================== */
-const DATA_VERSION = "2026-05-28-v47";
+const DATA_VERSION = "2026-05-28-v49";
 const savedData    = localStorage.getItem('rm_data');
 const savedVersion = localStorage.getItem('rm_version');
 if (savedData && savedVersion === DATA_VERSION) { try { ROADMAP = JSON.parse(savedData); } catch(e) {} }
