@@ -235,7 +235,7 @@ body {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  height: 42px;
+  height: 52px;
   display: flex;
   align-items: center;
   padding: 0 22px 0 14px;
@@ -710,8 +710,18 @@ let ROADMAP = {
           start:       "2026-02-01",
           end:         "2026-05-15",
           tentative:   false,
+          lane:        0,
           notes:       "Feb through mid-May",
           commitments: ["End to end testing, clean up work"]
+        },
+        {
+          id:        "ui-2",
+          label:     "E2E Testing & Clean-up",
+          start:     "2026-05-07",
+          end:       "2026-06-30",
+          tentative: false,
+          lane:      1,
+          notes:     "End-to-end testing and clean-up work for Unified Inbox"
         }
       ],
       milestones: []
@@ -744,6 +754,15 @@ let ROADMAP = {
           tentative: false,
           lane:      1,
           notes:     "Migrate AU bundle records to Compliance Service"
+        },
+        {
+          id:        "10dlc-planning",
+          label:     "10DLC Compliance:\nIn-house Service Planning",
+          start:     "2026-07-08",
+          end:       "2026-08-18",
+          tentative: true,
+          lane:      1,
+          notes:     "Planning to build the Twilio Compliance Embeddable capability in-house for 10DLC registration"
         },
         {
           id:        "ca-reg",
@@ -1351,7 +1370,7 @@ document.getElementById('modal-bg').addEventListener('click', e => {
 /* ====================================================================
    INIT
    ==================================================================== */
-const DATA_VERSION = "2026-05-28-v49";
+const DATA_VERSION = "2026-05-28-v54";
 const savedData    = localStorage.getItem('rm_data');
 const savedVersion = localStorage.getItem('rm_version');
 if (savedData && savedVersion === DATA_VERSION) { try { ROADMAP = JSON.parse(savedData); } catch(e) {} }
