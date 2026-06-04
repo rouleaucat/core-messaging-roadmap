@@ -699,24 +699,24 @@ let ROADMAP = {
 
     {
       id:      "unified-inbox",
-      name:    "Unified Inbox",
-      link:    "https://www.notion.so/playlist/Unified-Inbox-Initiative-Overview-334dda30e2318157914bcf289e12b868",
+      name:    "CRM",
       color:   "#f97316",
       bgColor: "#fff7ed",
       bars: [
         {
           id:          "ui-1",
-          label:       "Development",
+          label:       "Unified Inbox: Development",
           start:       "2026-02-01",
           end:         "2026-05-15",
           tentative:   false,
           lane:        0,
+          link:        "https://www.notion.so/playlist/Unified-Inbox-Initiative-Overview-334dda30e2318157914bcf289e12b868",
           notes:       "Feb through mid-May",
           commitments: ["End to end testing, clean up work"]
         },
         {
           id:        "ui-2",
-          label:     "E2E Testing & Clean-up",
+          label:     "Unified Inbox: E2E Testing & Clean-up",
           start:     "2026-05-07",
           end:       "2026-06-30",
           tentative: false,
@@ -802,6 +802,15 @@ let ROADMAP = {
           notes:     "Platform scaling initiative"
         }
       ],
+      milestones: []
+    },
+
+    {
+      id:      "modernization",
+      name:    "Modernization",
+      color:   "#0891b2",
+      bgColor: "#ecfeff",
+      bars:       [],
       milestones: []
     },
 
@@ -1370,7 +1379,7 @@ document.getElementById('modal-bg').addEventListener('click', e => {
 /* ====================================================================
    INIT
    ==================================================================== */
-const DATA_VERSION = "2026-05-28-v54";
+const DATA_VERSION = "2026-05-28-v56";
 const savedData    = localStorage.getItem('rm_data');
 const savedVersion = localStorage.getItem('rm_version');
 if (savedData && savedVersion === DATA_VERSION) { try { ROADMAP = JSON.parse(savedData); } catch(e) {} }
