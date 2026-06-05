@@ -45,6 +45,22 @@ body {
   margin-top: 6px;
 }
 .page-subtitle { font-size: 13px; color: #888; font-weight: 500; }
+.header-links { display: flex; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
+.header-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #3b82f6;
+  text-decoration: none;
+  padding: 3px 10px;
+  border-radius: 99px;
+  border: 1.5px solid #bfdbfe;
+  background: #eff6ff;
+  transition: background 0.15s, border-color 0.15s;
+}
+.header-link:hover { background: #dbeafe; border-color: #93c5fd; }
 .today-badge {
   font-size: 12px;
   background: #fee2e2;
@@ -468,6 +484,10 @@ body {
       <div class="page-title" id="hdr-title">Core Messaging Roadmap</div>
       <div class="page-meta">
         <span class="page-subtitle" id="hdr-subtitle"></span>
+      </div>
+      <div class="header-links">
+        <a class="header-link" href="https://www.notion.so/playlist/Core-Messaging-184dda30e23181bda973e75b26f33208" target="_blank" rel="noopener">📋 Core Messaging Site</a>
+        <a class="header-link" href="https://www.notion.so/playlist/Core-Messaging-18adda30e23181eeaaf0cca871b1275b#18adda30e2318128b05ed84d54b9195b" target="_blank" rel="noopener">📌 Commitments</a>
       </div>
     </div>
     <div class="header-actions">
@@ -1380,7 +1400,7 @@ document.getElementById('modal-bg').addEventListener('click', e => {
 /* ====================================================================
    INIT
    ==================================================================== */
-const DATA_VERSION = "2026-05-28-v59";
+const DATA_VERSION = "2026-05-28-v60";
 const savedData    = localStorage.getItem('rm_data');
 const savedVersion = localStorage.getItem('rm_version');
 if (savedData && savedVersion === DATA_VERSION) { try { ROADMAP = JSON.parse(savedData); } catch(e) {} }
