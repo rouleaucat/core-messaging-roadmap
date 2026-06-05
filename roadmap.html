@@ -547,14 +547,14 @@ let ROADMAP = {
   tracks: [
     {
       id:      "template-config",
-      name:    "Template Config",
+      name:    "Platformization",
       link:    "https://www.notion.so/playlist/Template-Configuration-Initiative-Overview-336dda30e231818b99d0c2e36875760b",
       color:   "#3b82f6",
       bgColor: "#eff6ff",
       bars: [
         {
           id:        "tc-1",
-          label:     "🚀 3P Integration",
+          label:     "🚀 Template Config: 3P Integration",
           start:     "2026-01-06",
           end:       "2026-02-14",
           tentative: false,
@@ -563,7 +563,7 @@ let ROADMAP = {
         },
         {
           id:        "tc-2",
-          label:     "BSP Phase 1",
+          label:     "Template Config: BSP Phase 1",
           start:     "2026-04-01",
           end:       "2026-04-21",
           tentative: false,
@@ -572,7 +572,7 @@ let ROADMAP = {
         },
         {
           id:        "tc-3",
-          label:     "Adoption Discovery",
+          label:     "Template Config: Adoption Discovery",
           start:     "2026-06-17",
           end:       "2026-06-30",
           tentative: true,
@@ -581,7 +581,7 @@ let ROADMAP = {
         },
         {
           id:        "tc-4",
-          label:     "SMS Migration",
+          label:     "Template Config: SMS Migration",
           start:     "2026-07-01",
           end:       "2026-09-30",
           tentative: true,
@@ -590,7 +590,7 @@ let ROADMAP = {
         },
         {
           id:        "tc-5",
-          label:     "Email Migration",
+          label:     "Template Config: Email Migration",
           start:     "2026-10-01",
           end:       "2026-12-31",
           tentative: true,
@@ -651,6 +651,7 @@ let ROADMAP = {
           end:       "2026-09-29",
           tentative: false,
           lane:      1,
+          link:      "https://www.notion.so/playlist/Transactional-Notifications-Wave-2-374dda30e23181888b48c7e6ff192b96",
           notes:     "Transactional Messages Wave 2 — Q3 Cycle 2"
         },
         {
@@ -808,8 +809,8 @@ let ROADMAP = {
     {
       id:      "modernization",
       name:    "Modernization",
-      color:   "#0891b2",
-      bgColor: "#ecfeff",
+      color:   "#0d9488",
+      bgColor: "#f0fdfa",
       bars:       [],
       milestones: []
     },
@@ -1379,7 +1380,7 @@ document.getElementById('modal-bg').addEventListener('click', e => {
 /* ====================================================================
    INIT
    ==================================================================== */
-const DATA_VERSION = "2026-05-28-v56";
+const DATA_VERSION = "2026-05-28-v59";
 const savedData    = localStorage.getItem('rm_data');
 const savedVersion = localStorage.getItem('rm_version');
 if (savedData && savedVersion === DATA_VERSION) { try { ROADMAP = JSON.parse(savedData); } catch(e) {} }
