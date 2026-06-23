@@ -600,6 +600,27 @@ let ROADMAP = {
           notes:     ""
         },
         {
+          id:          "ks-1",
+          label:       "Kite Support: Architecture & Design Support",
+          start:       "2026-04-01",
+          end:         "2026-06-30",
+          tentative:   false,
+          lane:        0,
+          color:       "#9333ea",
+          notes:       "Full Q2 Kite integration",
+          commitments: ["Continued architecture/design support + code reviews for Kite development"]
+        },
+        {
+          id:        "ks-2",
+          label:     "Kite Support: Platform Scaling",
+          start:     "2026-05-26",
+          end:       "2026-06-30",
+          tentative: false,
+          lane:      1,
+          color:     "#9333ea",
+          notes:     "Platform scaling initiative"
+        },
+        {
           id:        "tc-4",
           label:     "Template Config: SMS Migration",
           start:     "2026-07-01",
@@ -647,13 +668,23 @@ let ROADMAP = {
           commitments: ["Product Gate for Template Editing (Phase 2/H2)", "Template Management", "Feature Management", "Token Refresh", "Webhooks Handling", "Complete adoption work in sending repos"]
         },
         {
-          id:        "wa-template-editing",
-          label:     "Template Editing",
-          start:     "2026-07-01",
-          end:       "2026-09-30",
+          id:        "wa-lang-support",
+          label:     "Additional Language\nSupport",
+          start:     "2026-07-08",
+          end:       "2026-08-18",
           tentative: false,
           lane:      0,
-          notes:     "Template editing support in Q3"
+          notes:     "Additional language support for WhatsApp — Q3 Cycle 1"
+        },
+        {
+          id:        "wa-transactional-w2",
+          label:     "Transactional Messages:\nWave 2",
+          start:     "2026-07-08",
+          end:       "2026-08-18",
+          tentative: false,
+          lane:      1,
+          link:      "https://www.notion.so/playlist/Transactional-Notifications-Wave-2-374dda30e23181888b48c7e6ff192b96",
+          notes:     "Transactional Messages Wave 2 — Q3 Cycle 1"
         },
         {
           id:        "wa-direct-send-poc",
@@ -665,32 +696,31 @@ let ROADMAP = {
           notes:     "Run a proof of concept on Meta's Direct Send API for Transactional/Utility messages"
         },
         {
-          id:        "wa-transactional-w2",
-          label:     "Transactional Messages: Wave 2",
+          id:        "wa-template-editing",
+          label:     "Template Editing",
+          start:     "2026-08-19",
+          end:       "2026-11-17",
+          tentative: false,
+          lane:      0,
+          notes:     "Template editing support in Q3 Cycle 2 through Q4 Cycle 1"
+        },
+        {
+          id:        "wa-transactional-w3",
+          label:     "Transactional Messages:\nWave 3",
           start:     "2026-08-19",
           end:       "2026-09-29",
           tentative: false,
           lane:      1,
-          link:      "https://www.notion.so/playlist/Transactional-Notifications-Wave-2-374dda30e23181888b48c7e6ff192b96",
-          notes:     "Transactional Messages Wave 2 — Q3 Cycle 2"
-        },
-        {
-          id:        "wa-transactional-w3",
-          label:     "Transactional Messages: Wave 3",
-          start:     "2026-10-07",
-          end:       "2026-11-17",
-          tentative: false,
-          lane:      2,
-          notes:     "Transactional Messages Wave 3 — Q4 Cycle 1"
+          notes:     "Transactional Messages Wave 3 — Q3 Cycle 2"
         },
         {
           id:        "wa-smartdesk",
           label:     "SmartDesk Adoption",
-          start:     "2026-10-01",
-          end:       "2026-12-31",
+          start:     "2026-11-18",
+          end:       "2026-12-23",
           tentative: true,
-          lane:      0,
-          notes:     "SmartDesk adoption in Q4"
+          lane:      1,
+          notes:     "SmartDesk adoption in Q4 Cycle 2"
         }
       ],
       milestones: [
@@ -754,14 +784,14 @@ let ROADMAP = {
       color:   "#6366f1",
       bgColor: "#eef2ff",
       groupLabels: [
-        { label: "Australia KYC", link: "https://www.notion.so/playlist/Australia-KYC-Compliance-Initiative-34bdda30e231817fb1a0d80533e551a1", date: "2026-05-01" }
+        { label: "Australia KYC", link: "https://www.notion.so/playlist/Australia-KYC-Compliance-Initiative-34bdda30e231817fb1a0d80533e551a1", date: "2027-01-01" }
       ],
       bars: [
         {
           id:          "au-twilio",
           label:       "Twilio Compliance (AU)",
-          start:       "2026-05-01",
-          end:         "2026-06-15",
+          start:       "2027-01-01",
+          end:         "2027-02-14",
           tentative:   false,
           lane:        0,
           notes:       "Integrate Twilio Compliance Embeddable for AU customers",
@@ -770,8 +800,8 @@ let ROADMAP = {
         {
           id:        "au-migrate",
           label:     "Migrate AU Records",
-          start:     "2026-05-01",
-          end:       "2026-06-30",
+          start:     "2027-01-01",
+          end:       "2027-03-01",
           tentative: false,
           lane:      1,
           notes:     "Migrate AU bundle records to Compliance Service"
@@ -804,25 +834,7 @@ let ROADMAP = {
       name:    "Kite Support",
       color:   "#9333ea",
       bgColor: "#faf5ff",
-      bars: [
-        {
-          id:          "ks-1",
-          label:       "Architecture & Design Support",
-          start:       "2026-04-01",
-          end:         "2026-06-30",
-          tentative:   false,
-          notes:       "Full Q2 Kite integration",
-          commitments: ["Continued architecture/design support + code reviews for Kite development"]
-        },
-        {
-          id:        "ks-2",
-          label:     "Platform Scaling",
-          start:     "2026-05-26",
-          end:       "2026-06-30",
-          tentative: false,
-          notes:     "Platform scaling initiative"
-        }
-      ],
+      bars:       [],
       milestones: []
     },
 
@@ -1127,7 +1139,7 @@ function render() {
     const GL_H            = hasGroupLabels ? 28 : 0; /* 28px reserved below group label */
     const barZoneH     = laneCount > 1 ? laneCount * 50 + 16 : 74;
     const trackH       = MS_H + GL_H + barZoneH;
-    const barColor     = track.color   || '#3ecf8e';
+    const trackColor   = track.color   || '#3ecf8e';
     const bgColor      = track.bgColor || '#f5fdf8';
 
     html += `<div class="track-row" style="min-height:${trackH}px;background:${bgColor};">`;
@@ -1147,6 +1159,7 @@ function render() {
 
     /* Bars */
     track.bars.forEach((bar, barIdx) => {
+      const barColor  = bar.color || trackColor; /* per-bar color override */
       const l        = pct(bar.start, S, E);
       const w        = pct(bar.end,   S, E) - l;
       const lane      = computedLanes[barIdx] ?? 0;
@@ -1187,7 +1200,7 @@ function render() {
       const inner  = gl.link
         ? `<a href="${escAttr(gl.link)}" target="_blank" rel="noopener">${gl.label}</a>`
         : gl.label;
-      html += `<div class="track-group-label" style="left:${glLeft}%;--gl-color:${barColor};">${inner}</div>`;
+      html += `<div class="track-group-label" style="left:${glLeft}%;--gl-color:${trackColor};">${inner}</div>`;
     });
 
 
@@ -1400,7 +1413,7 @@ document.getElementById('modal-bg').addEventListener('click', e => {
 /* ====================================================================
    INIT
    ==================================================================== */
-const DATA_VERSION = "2026-05-28-v60";
+const DATA_VERSION = "2026-05-28-v68";
 const savedData    = localStorage.getItem('rm_data');
 const savedVersion = localStorage.getItem('rm_version');
 if (savedData && savedVersion === DATA_VERSION) { try { ROADMAP = JSON.parse(savedData); } catch(e) {} }
