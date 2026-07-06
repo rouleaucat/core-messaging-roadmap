@@ -591,13 +591,13 @@ let ROADMAP = {
           notes:     "BSP Phase 1 integration"
         },
         {
-          id:        "tc-3",
-          label:     "Template Config: Adoption Discovery",
-          start:     "2026-06-17",
-          end:       "2026-06-30",
-          tentative: true,
+          id:        "tc-sms-email-readiness",
+          label:     "SMS/Email Template\nPlatform Readiness",
+          start:     "2026-07-08",
+          end:       "2026-08-18",
+          tentative: false,
           lane:      2,
-          notes:     ""
+          notes:     "Readiness work for the SMS and Email template platform — net new rendering path and migration groundwork"
         },
         {
           id:          "ks-1",
@@ -612,31 +612,31 @@ let ROADMAP = {
         },
         {
           id:        "ks-2",
-          label:     "Kite Support: Platform Scaling",
-          start:     "2026-05-26",
-          end:       "2026-06-30",
+          label:     "Kite Support:\nPlatform Scaling",
+          start:     "2026-08-19",
+          end:       "2026-09-29",
           tentative: false,
-          lane:      1,
+          lane:      2,
           color:     "#9333ea",
-          notes:     "Platform scaling initiative"
+          notes:     "Platform scaling initiative — Q3 Cycle 2"
         },
         {
           id:        "tc-4",
           label:     "Template Config: SMS Migration",
-          start:     "2026-07-01",
-          end:       "2026-09-30",
+          start:     "2026-08-19",
+          end:       "2026-09-29",
           tentative: true,
           lane:      0,
-          notes:     "SMS migration in Q3"
+          notes:     "SMS migration in Q3 Cycle 2"
         },
         {
           id:        "tc-5",
-          label:     "Template Config: Email Migration",
-          start:     "2026-10-01",
-          end:       "2026-12-31",
+          label:     "Template Config:\nEmail Migration",
+          start:     "2026-08-19",
+          end:       "2026-09-29",
           tentative: true,
           lane:      1,
-          notes:     "Email migration in Q4"
+          notes:     "Email migration in Q3 Cycle 2"
         }
       ],
       milestones: []
@@ -688,12 +688,12 @@ let ROADMAP = {
         },
         {
           id:        "wa-direct-send-poc",
-          label:     "Direct Send API POC",
+          label:     "Direct Send API:\nInvestigation",
           start:     "2026-07-08",
           end:       "2026-08-18",
           tentative: true,
           lane:      2,
-          notes:     "Run a proof of concept on Meta's Direct Send API for Transactional/Utility messages"
+          notes:     "Investigation into Meta's Direct Send API for Transactional/Utility messages — not a POC. Team agreed to avoid beta products from Meta/Twilio; investigation only at this stage."
         },
         {
           id:        "wa-template-editing",
@@ -705,22 +705,22 @@ let ROADMAP = {
           notes:     "Template editing support in Q3 Cycle 2 through Q4 Cycle 1"
         },
         {
+          id:        "wa-churn",
+          label:     "Handling\nCustomer Churn",
+          start:     "2026-08-19",
+          end:       "2026-09-29",
+          tentative: false,
+          lane:      1,
+          notes:     "Handle customer churn steps for WhatsApp — e.g., revoking credit lines and offboarding flows in Q3 Cycle 2"
+        },
+        {
           id:        "wa-transactional-w3",
           label:     "Transactional Messages:\nWave 3",
           start:     "2026-08-19",
           end:       "2026-09-29",
           tentative: false,
-          lane:      1,
+          lane:      2,
           notes:     "Transactional Messages Wave 3 — Q3 Cycle 2"
-        },
-        {
-          id:        "wa-smartdesk",
-          label:     "SmartDesk Adoption",
-          start:     "2026-11-18",
-          end:       "2026-12-23",
-          tentative: true,
-          lane:      1,
-          notes:     "SmartDesk adoption in Q4 Cycle 2"
         }
       ],
       milestones: [
@@ -741,7 +741,7 @@ let ROADMAP = {
         {
           id:           "m-phase1-launch",
           label:        "BSP Launch (Singapore)",
-          date:         "2026-07-21",
+          date:         "2026-07-07",
           labelOffsetX: 14,
           labelOffsetY: -3
         }
@@ -773,6 +773,15 @@ let ROADMAP = {
           tentative: false,
           lane:      1,
           notes:     "End-to-end testing and clean-up work for Unified Inbox"
+        },
+        {
+          id:        "ui-ai-concierge",
+          label:     "AI Concierge <> WhatsApp",
+          start:     "2026-11-18",
+          end:       "2026-12-23",
+          tentative: true,
+          lane:      0,
+          notes:     "AI Concierge integration with WhatsApp — investigation scope for this year, full build likely next year"
         }
       ],
       milestones: []
@@ -872,6 +881,15 @@ let ROADMAP = {
           lane:        1,
           notes:       "Audit logging implementation",
           commitments: ["Add audit log support to 3 legacy owned tables"]
+        },
+        {
+          id:        "ti-10dlc-reg",
+          label:     "10DLC Registration Improvement",
+          start:     "2026-07-08",
+          end:       "2026-08-18",
+          tentative: false,
+          lane:      0,
+          notes:     "Add brand/website justification field to campaign descriptions submitted to Twilio for 10DLC registration. Helps prevent campaign rejections when website doesn't match brand — text is appended to the campaign description for the human reviewer at Twilio."
         }
       ],
       milestones: []
@@ -1137,7 +1155,7 @@ function render() {
     const MS_H            = hasMilestones ? msLaneCount * 32 : 0; /* 32px per milestone row */
     const hasGroupLabels  = track.groupLabels && track.groupLabels.length > 0;
     const GL_H            = hasGroupLabels ? 28 : 0; /* 28px reserved below group label */
-    const barZoneH     = laneCount > 1 ? laneCount * 50 + 16 : 74;
+    const barZoneH     = laneCount > 1 ? laneCount * 68 + 8 : 74;
     const trackH       = MS_H + GL_H + barZoneH;
     const trackColor   = track.color   || '#3ecf8e';
     const bgColor      = track.bgColor || '#f5fdf8';
@@ -1413,7 +1431,7 @@ document.getElementById('modal-bg').addEventListener('click', e => {
 /* ====================================================================
    INIT
    ==================================================================== */
-const DATA_VERSION = "2026-05-28-v68";
+const DATA_VERSION = "2026-05-28-v75";
 const savedData    = localStorage.getItem('rm_data');
 const savedVersion = localStorage.getItem('rm_version');
 if (savedData && savedVersion === DATA_VERSION) { try { ROADMAP = JSON.parse(savedData); } catch(e) {} }
