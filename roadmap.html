@@ -571,10 +571,19 @@ let ROADMAP = {
       link:    "https://www.notion.so/playlist/Template-Configuration-Initiative-Overview-336dda30e231818b99d0c2e36875760b",
       color:   "#3b82f6",
       bgColor: "#eff6ff",
+      milestones: [
+        {
+          id:           "m-kite-adoption",
+          label:        "Kite Adoption",
+          date:         "2026-09-15",
+          labelOffsetX: 14,
+          labelOffsetY: -3
+        }
+      ],
       bars: [
         {
           id:        "tc-1",
-          label:     "🚀 Template Config: 3P Integration",
+          label:     "🚀 Template Config:\n3P Integration",
           start:     "2026-01-06",
           end:       "2026-02-14",
           tentative: false,
@@ -583,7 +592,7 @@ let ROADMAP = {
         },
         {
           id:        "tc-2",
-          label:     "Template Config: BSP Phase 1",
+          label:     "Template Config:\nBSP Phase 1",
           start:     "2026-04-01",
           end:       "2026-04-21",
           tentative: false,
@@ -596,12 +605,12 @@ let ROADMAP = {
           start:     "2026-07-08",
           end:       "2026-08-18",
           tentative: false,
-          lane:      2,
+          lane:      0,
           notes:     "Readiness work for the SMS and Email template platform — net new rendering path and migration groundwork"
         },
         {
           id:          "ks-1",
-          label:       "Kite Support: Architecture & Design Support",
+          label:       "Kite Support:\nArchitecture & Design Support",
           start:       "2026-04-01",
           end:         "2026-06-30",
           tentative:   false,
@@ -622,7 +631,7 @@ let ROADMAP = {
         },
         {
           id:        "tc-4",
-          label:     "Template Config: SMS Migration",
+          label:     "Template Config:\nSMS Migration",
           start:     "2026-08-19",
           end:       "2026-09-29",
           tentative: true,
@@ -638,8 +647,7 @@ let ROADMAP = {
           lane:      1,
           notes:     "Email migration in Q3 Cycle 2"
         }
-      ],
-      milestones: []
+      ]
     },
 
     {
@@ -756,7 +764,7 @@ let ROADMAP = {
       bars: [
         {
           id:          "ui-1",
-          label:       "Unified Inbox: Development",
+          label:       "Unified Inbox:\nDevelopment",
           start:       "2026-02-01",
           end:         "2026-05-15",
           tentative:   false,
@@ -767,7 +775,7 @@ let ROADMAP = {
         },
         {
           id:        "ui-2",
-          label:     "Unified Inbox: E2E Testing & Clean-up",
+          label:     "Unified Inbox:\nE2E Testing & Clean-up",
           start:     "2026-05-07",
           end:       "2026-06-30",
           tentative: false,
@@ -776,12 +784,21 @@ let ROADMAP = {
         },
         {
           id:        "ui-ai-concierge",
-          label:     "AI Concierge <> WhatsApp",
+          label:     "AI Concierge\n<> WhatsApp",
           start:     "2026-11-18",
           end:       "2026-12-23",
           tentative: true,
           lane:      0,
           notes:     "AI Concierge integration with WhatsApp — investigation scope for this year, full build likely next year"
+        },
+        {
+          id:        "ui-email-concierge",
+          label:     "Email in\nAI Concierge",
+          start:     "2026-08-19",
+          end:       "2026-09-29",
+          tentative: true,
+          lane:      0,
+          notes:     "Email channel integration for AI Concierge — Q3 Cycle 2"
         }
       ],
       milestones: []
@@ -816,23 +833,32 @@ let ROADMAP = {
           notes:     "Migrate AU bundle records to Compliance Service"
         },
         {
-          id:        "10dlc-planning",
-          label:     "10DLC Compliance:\nIn-house Service Planning",
-          start:     "2026-07-08",
-          end:       "2026-08-18",
-          tentative: true,
-          lane:      1,
-          notes:     "Planning to build the Twilio Compliance Embeddable capability in-house for 10DLC registration"
-        },
-        {
           id:        "ca-reg",
-          label:     "Canadian A2P messaging registration",
+          label:     "Canadian A2P\nmessaging registration",
           start:     "2026-08-19",
           end:       "2026-09-30",
-          tentative: true,
+          tentative: false,
           lane:      0,
           link:      "https://www.notion.so/372dda30e23181febb41dd40cb0285cb",
-          notes:     "Tentative development work for Canadian A2P messaging registration"
+          notes:     "Canadian A2P messaging registration"
+        },
+        {
+          id:        "brand-reg-auth",
+          label:     "Brand Registration\nAuth",
+          start:     "2026-10-07",
+          end:       "2026-11-17",
+          tentative: false,
+          lane:      1,
+          notes:     "Brand registration authentication — Q4 Cycle 1"
+        },
+        {
+          id:        "10dlc-planning",
+          label:     "10DLC Compliance:\nIn-house Service Planning",
+          start:     "2027-04-01",
+          end:       "2027-06-30",
+          tentative: true,
+          lane:      0,
+          notes:     "Planning to build the Twilio Compliance Embeddable capability in-house for 10DLC registration"
         }
       ],
       milestones: []
@@ -884,7 +910,7 @@ let ROADMAP = {
         },
         {
           id:        "ti-10dlc-reg",
-          label:     "10DLC Registration Improvement",
+          label:     "10DLC Registration\nImprovement",
           start:     "2026-07-08",
           end:       "2026-08-18",
           tentative: false,
@@ -911,7 +937,7 @@ let ROADMAP = {
     color: "#d97706",
     bgColor: "#fffbeb",
     items: [
-      { id: "pf-1", label: "Message Repository Reference Documentation", start: "2026-05-27", end: "2026-06-30", tentative: true,  notes: "Establish message repository reference documentation with clear ownership" },
+      { id: "pf-1", label: "Message Repository\nReference Documentation", start: "2026-05-27", end: "2026-06-30", tentative: true,  notes: "Establish message repository reference documentation with clear ownership" },
       { id: "pf-2", label: "Runbooks",                                   start: "2026-07-01", end: "2026-09-30", tentative: true,  notes: "Create and maintain operational runbooks" },
       { id: "pf-3", label: "Self-Service Tooling",                       start: "2026-10-01", end: "2026-12-31", tentative: true,  notes: "Build tooling to enable self-service workflows" }
     ]
@@ -1431,7 +1457,7 @@ document.getElementById('modal-bg').addEventListener('click', e => {
 /* ====================================================================
    INIT
    ==================================================================== */
-const DATA_VERSION = "2026-05-28-v75";
+const DATA_VERSION = "2026-07-23-v80";
 const savedData    = localStorage.getItem('rm_data');
 const savedVersion = localStorage.getItem('rm_version');
 if (savedData && savedVersion === DATA_VERSION) { try { ROADMAP = JSON.parse(savedData); } catch(e) {} }
