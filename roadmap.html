@@ -801,6 +801,15 @@ let ROADMAP = {
           notes:     "AI Concierge integration with WhatsApp — investigation scope for this year, full build likely next year"
         },
         {
+          id:        "ui-attentive",
+          label:     "Attentive\n<> WhatsApp",
+          start:     "2027-01-07",
+          end:       "2027-02-17",
+          tentative: false,
+          lane:      0,
+          notes:     "Attentive integration with WhatsApp — 2027 Q1 H1"
+        },
+        {
           id:        "ui-email-concierge",
           label:     "Email in\nAI Concierge",
           start:     "2026-08-19",
@@ -1466,7 +1475,7 @@ document.getElementById('modal-bg').addEventListener('click', e => {
 /* ====================================================================
    INIT
    ==================================================================== */
-const DATA_VERSION = "2026-07-23-v83";
+const DATA_VERSION = "2026-07-23-v84";
 const savedData    = localStorage.getItem('rm_data');
 const savedVersion = localStorage.getItem('rm_version');
 if (savedData && savedVersion === DATA_VERSION) { try { ROADMAP = JSON.parse(savedData); } catch(e) {} }
