@@ -625,7 +625,7 @@ let ROADMAP = {
           start:     "2026-08-19",
           end:       "2026-09-29",
           tentative: false,
-          lane:      2,
+          lane:      0,
           color:     "#9333ea",
           notes:     "Platform scaling initiative — Q3 Cycle 2"
         },
@@ -635,7 +635,7 @@ let ROADMAP = {
           start:     "2026-08-19",
           end:       "2026-09-29",
           tentative: true,
-          lane:      0,
+          lane:      1,
           notes:     "SMS migration in Q3 Cycle 2"
         },
         {
@@ -644,7 +644,7 @@ let ROADMAP = {
           start:     "2026-08-19",
           end:       "2026-09-29",
           tentative: true,
-          lane:      1,
+          lane:      2,
           notes:     "Email migration in Q3 Cycle 2"
         }
       ]
@@ -729,6 +729,15 @@ let ROADMAP = {
           tentative: false,
           lane:      2,
           notes:     "Transactional Messages Wave 3 — Q3 Cycle 2"
+        },
+        {
+          id:        "wa-marketing-api",
+          label:     "Marketing API:\nInvestigation",
+          start:     "2026-08-19",
+          end:       "2026-09-29",
+          tentative: true,
+          lane:      3,
+          notes:     "Investigation into Marketing API capabilities for WhatsApp — Q3 Cycle 2"
         }
       ],
       milestones: [
@@ -835,8 +844,8 @@ let ROADMAP = {
         {
           id:        "ca-reg",
           label:     "Canadian A2P\nmessaging registration",
-          start:     "2026-08-19",
-          end:       "2026-09-30",
+          start:     "2026-02-25",
+          end:       "2026-04-07",
           tentative: false,
           lane:      0,
           link:      "https://www.notion.so/372dda30e23181febb41dd40cb0285cb",
@@ -1457,7 +1466,7 @@ document.getElementById('modal-bg').addEventListener('click', e => {
 /* ====================================================================
    INIT
    ==================================================================== */
-const DATA_VERSION = "2026-07-23-v80";
+const DATA_VERSION = "2026-07-23-v83";
 const savedData    = localStorage.getItem('rm_data');
 const savedVersion = localStorage.getItem('rm_version');
 if (savedData && savedVersion === DATA_VERSION) { try { ROADMAP = JSON.parse(savedData); } catch(e) {} }
